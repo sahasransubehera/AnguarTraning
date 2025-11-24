@@ -1,0 +1,12 @@
+<div
+  class="card-body"
+  [appProductHighlight]="product"
+>
+  <h5 class="card-title">{{ product?.title }}</h5>
+  <img [src]="product?.imageurl" width="100" height="100" alt="{{ product?.title }}" />
+  <p class="card-text">Description: {{ product?.description }}</p>
+  <p class="card-text">Price: ₹{{ product?.price }}</p>
+  <p class="card-text">Discount: {{ product?.discount }}%</p>
+  <p class="card-text">Stock: {{ product?.stock }}</p>
+  <app-counter [count]="product?.likes" (update)="onUpdate($event)"> </app-counter>
+</div>

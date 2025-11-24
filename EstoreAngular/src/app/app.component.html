@@ -1,16 +1,8 @@
-<h2>Welcome to the {{title}}!</h2>
-<hr/>
-
-<!--<app-list></app-list>-->
-
-<!-- <app-sign-in></app-sign-in> -->
- <!-- <app-register></app-register> -->
-
-
-
-
-
-<!-- <app-insert></app-insert> -->
-
-
-  <app-cart></app-cart>
+<div class="container mt-4">
+  <h2>{{ title }}</h2>
+  <nav class="mb-3">
+    <a routerLink="/cart" class="btn btn-outline-secondary me-2">View Cart</a>
+    <a routerLink="/add" class="btn btn-outline-primary">Add Item</a>
+  </nav>
+  <router-outlet></router-outlet>
+</div>
