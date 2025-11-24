@@ -1,27 +1,26 @@
-import { Component,OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Item as CartItem } from '../models/Item';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { CartService } from '../cart.service';
-
+import { Router } from '@angular/router';
+import { HighlightCardDirectiveDirective } from '../../Custom/highlight-card.directive.directive';
 
 @Component({
   selector: 'app-cart',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule,HighlightCardDirectiveDirective],
   templateUrl: './cart.component.html',
-  styleUrl: './cart.component.css'
+  styleUrls: ['./cart.component.css']
 })
 export class CartComponent implements OnInit {
   cartItems: CartItem[] = [];
 
-  // model for add form
-  newItem: CartItem = { productId: 0, name: '', price: 0, quantity: 1, image: '' };
-
-  constructor(private cartService: CartService) {}
+  constructor(private cartService: CartService, private router: Router) {}
 
   ngOnInit(): void {
     if (this.cartService.getCartItems().length === 0) {
+      // sample data
       this.cartService.addToCart({ productId: 1, name: 'Rose', price: 15, quantity: 2, image: '/assets/images/rose.jpg' });
       this.cartService.addToCart({ productId: 2, name: 'Lotus', price: 30, quantity: 4, image: '/assets/images/lotus.jpg' });
     }
@@ -30,13 +29,6 @@ export class CartComponent implements OnInit {
 
   load(): void {
     this.cartItems = this.cartService.getCartItems();
-  }
-
-  addToCart(): void {
-    if (!this.newItem.productId) return;
-    this.cartService.addToCart({ ...this.newItem });
-    this.newItem = { productId: 0, name: '', price: 0, quantity: 0, image: '' };
-    this.load();
   }
 
   updateQuantity(productId: number, quantity: number): void {
@@ -64,5 +56,9 @@ export class CartComponent implements OnInit {
 
   getTotalPrice(): number {
     return this.cartService.getTotalPrice();
+  }
+
+  goToAddItem(): void {
+    this.router.navigate(['/add']); // ✅ go to AddToCart page
   }
 }
